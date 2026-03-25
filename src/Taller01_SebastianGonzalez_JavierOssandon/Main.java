@@ -19,7 +19,7 @@ public class Main {
         int contador = 0;
 
         //Primero Leeremos los archivos
-
+        System.out.println("holaaaaaa");
         try {
 
             File File1 = new File ("Usuarios.txt");
