@@ -119,13 +119,25 @@ public class Main {
         				
         				String newA = lector.nextLine();
         				
-        				System.out.println("Ingrese Nueva Fecha");
+        				System.out.println("Ingrese Fecha De La Actividad");
 						System.out.println("Ingresar Formato DD/MM/AAAA");
 						String newF = lector.nextLine();
+						if(!newF.matches("\\d{2}/\\d{2}/\\d{4}")) {//este if verifica que el formato DD/MM/AAAA se cumpla, en caso de no cumplirse devolvera al menu de usuario
+							System.out.println("Formato de fecha invalido. Use DD/MM/AAAA");
+						    break;
+						}
+						
 						
 						System.out.println("Ingrese La Duracion De La Actividad");
 						String newD = lector.nextLine();
-											
+										
+						try{ //Este try tiene por proposito verificar que la duracion colocada en el scanner es un numero valido
+							int Comprobante = Integer.parseInt(newD);
+						}catch(Exception e) {
+							System.out.println("La Duracion Debe Ser Un Numero Entero (Horas)");
+							break;
+						}
+						
 						
 						if(ContadorRegistros<300) {
 							ID[ContadorRegistros] = usuario;
