@@ -18,17 +18,8 @@ public class Main {
 
         int ContadorUsuarios = 0;
         int ContadorRegistros = 0;
-        
-        //esta sera para contar el numero de lineas que hay en las actividades
-        int NumAct = 0;
-
-        //Primero Leeremos los archivos
-        
-        
-        int count = 0;//esta variable sera para contar la cantidad de usuarios existentes en la lista
-        
-        
-        
+              
+        //Primero Leeremos los archivos                       
         try {
 
             File File1 = new File ("Usuarios.txt");
@@ -36,23 +27,14 @@ public class Main {
             Scanner Usuarios = new Scanner(File1);
             Scanner Registros = new Scanner(File2);
 
-
-            //Guardaremos en el arreglo users lo que hay en Usuarios.txt
-            
-            
-            while(Usuarios.hasNextLine()) {    //Si hay registro en la siguiente linea
-                
-            	
-            	count++; //sumara 1 por cada usuario extra
-                
-                
-            
+            //Guardaremos en el arreglo users y passwords lo que hay en Usuarios.txt
+                        
+            while(Usuarios.hasNextLine()) {    //Si hay registro en la siguiente linea                
+            	         
             	String linea = Usuarios.nextLine();     // Lee la siguiente línea y la guarda en linea
                 String Partes[] = linea.split(";");      // Divide la línea en partes usando ";" como separador
                 Users[ContadorUsuarios] = Partes[0];             // Guarda el primer dato de nombres  en Users
-                Passwords[ContadorUsuarios] = Partes[1];        // Guarda el primer dato de las contraseñas en Passwords
-                
-                
+                Passwords[ContadorUsuarios] = Partes[1];        // Guarda el primer dato de las contraseñas en Passwords                              
                 ContadorUsuarios++;                                // Aumenta el contador para guardar el siguiente usuario en la siguiente posición
                 }
             Usuarios.close();
@@ -65,185 +47,198 @@ public class Main {
                 ID[ContadorRegistros] = Partes[0];             // Guarda el 1er dato en ID
                 Fechas[ContadorRegistros] = Partes[1];        // Guarda el 2do dato en fechas
                 Horas[ContadorRegistros] = Partes [2];		//  Guarda el 3er dato en horas
-                Actividad[ContadorRegistros] = Partes[3];	//  Guarda el 4to dato en Actividad
-                      
-                
-                NumAct++;
+                Actividad[ContadorRegistros] = Partes[3];	//  Guarda el 4to dato en Actividad                                                      
                 ContadorRegistros++;    // Aumenta el contador para guardar el siguiente usuario en la siguiente posición            
             }
             Registros.close();            
         }catch (Exception e) {
             System.out.println("Error Al Intentar Leer El Archivo");
         }
-        
-        //intentare generar un algoritmo que cuente la cantidad de usuarios existentes
-        
-        
-        
-        
-        
-      
-        //este es un print de prueba para ver si esta contando bien los usuarios
-        System.out.println("hay " + count + " usuarios disponibles");
-        //comparare la cantidad de los usuarios con el lenght que estamos usando luego en el menu de usuarios
-        System.out.println(Users.length);
-        
-        
-        
+       
         //Menu Principal
-        System.out.println("**Bienvenido**");
-        System.out.println("**Seleccione Una Opcion**");
-        System.out.println("1) Menu Usuarios");
-        System.out.println("2) Menu Analisis");
-        System.out.println("3) Salir");
-        
         Scanner lector = new Scanner(System.in);
-        String option;
-        option = lector.nextLine();
-        
-        
-        //mientras este booleano sea false el menu 1 se ejecutara
         boolean salir = false;
-        
-        
-        
-        //aqui empieza el menu 1
+
         while(!salir) {
-        	switch(option) {
+
+            System.out.println("**Bienvenido**");
+            System.out.println("**Seleccione Una Opcion**");
+            System.out.println("1) Menu Usuarios");
+            System.out.println("2) Menu Analisis");
+            System.out.println("3) Salir");
+
+            String option = lector.nextLine();
+
+            switch(option) {
         	case "1":
-        		//definiremos 2 variables a comparar siendo el usuario y la contrasena
+               	//definiremos 2 variables a comparar siendo el usuario y la contrasena
         		String usuario;
         		String password;
         		
-        		//bienvenida
         		System.out.println("**Bienvenido Al Menu De Usuarios**");
-        	    //ingreso del usuario
         		System.out.println("Ingrese Su Usuario:");
         		usuario = lector.nextLine();
-        		//contraseña
         		System.out.println("Ingrese Su Contrsasena:");
         		password = lector.nextLine();
-        		
-        	
-        		  
-        		
-        		
-        		
+              		
         		//Recorrer los arreglos para comparar si el ususario y la contrasena esta registrado
         		
-        		boolean Access = false;
+        		boolean Access = false;	
+        		boolean login = false;	//necesitamos otro booleano para el caso que aprete salir en el sub menu, y lo devuelva al menu general        	
+        		for(int i = 0; i<ContadorUsuarios; i++) {
         		
-        		
-        		
-        		//nota para seba ahora i < count para que el for recorra la cantidad de usuarios y no la longitud de 300 de la lista
-        		for(int i = 0; i<count; i++) {
-        			
-        			
-        			//este if comprueba si coincida usuario y contraseña
-        			if(Users[i].equals(usuario)&&Passwords[i].equals(password)) {
-        					System.out.println("**Acceso Correcto**");
-        					Access = true;
-        					if(Users[i]!=null&&Passwords[i]!=null){
-        						System.out.println("Bienvenido " + Users[i]);
-        						break;
-        						
-        					}        					        				        					
+        			if(Users[i].equals(usuario)&&Passwords[i].equals(password)) { //si el usuario y contrasena coinciden
+        				System.out.println();
+        				System.out.println("**Acceso Correcto**");
+        				Access = true;
+        				login = true;
+        				if(Users[i]!=null&&Passwords[i]!=null){
+        					System.out.println();
+        					System.out.println("Bienvenido(a) " + Users[i]);
+        		break;       						
+        				}        					        				        					
         			}
         		}
+   
+        		while(Access) {//Ahora generare un menu para cuando el acceso si sea correcto   
         		
-        		//ahora generare un menu para cuando el acceso si sea correcto
-        		String MenuUsers = "0";
-      
-        		while(Access) {
-        			
-
         			System.out.println("Que Deseas Realizar?");
         			System.out.println("1) Registrar Actividad.");
         			System.out.println("2) Modificar Actividad.");
         			System.out.println("3) Eliminar actividad.");
         			System.out.println("4) Cambiar Contraseña.");
         			System.out.println("5) Salir");
-        			
-        			MenuUsers = lector.nextLine();
-        			
-        			
+        			        			
+        	        String MenuUsers;
+        	        MenuUsers = lector.nextLine();
+        			       			
         			switch(MenuUsers) {
-        			
-        			
-        			case "1":
+        			        			
+        			case "1": //Agregar nueva
         				System.out.println("Que Actividad Deseas Registrar?");
         				
-        				System.out.println(NumAct);
+        				String newA = lector.nextLine();
         				
-        				//tenemos que printear las lineas que posean al usuario correspondiente.
-        				for(int i = 0; i < ContadorRegistros; i++) {
+        				System.out.println("Ingrese Nueva Fecha");
+						System.out.println("Ingresar Formato DD/MM/AAAA");
+						String newF = lector.nextLine();
+						
+						System.out.println("Ingrese La Duracion De La Actividad");
+						String newD = lector.nextLine();
+											
+						
+						if(ContadorRegistros<300) {
+							ID[ContadorRegistros] = usuario;
+							Fechas[ContadorRegistros] = newF;
+							Horas[ContadorRegistros] = newD;
+							Actividad[ContadorRegistros] = newA;
+							ContadorRegistros++;
+							System.out.println();
+							System.out.println("Agregado Exitosamente");
+							System.out.println();
+						}else {
+							System.out.println("No Se Pueden Agregar Mas Actividades");
+						}
+        				       				
+       				        				
+        			break;
+        				        	        				
+        			case "2": //Modificar
+        				
+        				System.out.println("Cual Actividad Desea Modificar?");
+        				System.out.println();
+        				for(int i = 0; i < ContadorRegistros; i++) { //tenemos que printear las lineas que posean al usuario correspondiente.
         					if(ID[i].equals(usuario)) {
-        						System.out.println(i+") "+ID[i]+" "+Fechas[i]+" "+Horas[i]+" "+Actividad[i]);
-        						
+        						System.out.println(i+") "+ID[i]+" "+Fechas[i]+" "+Horas[i]+" "+Actividad[i]);        						
         					}
         				}
         				
+        				String A = lector.nextLine(); //Guarda el n de la actividad que quiero modificar (i)
         				
-        				break;
+        				System.out.println("Que Deseas Modificar?");
+        				System.out.println("0) Regresar.");
+        				System.out.println("1) Fecha");
+        				System.out.println("2) Duracion");
+        				System.out.println("3) Tipo de actividad");
         				
-        			
-        				
-        			case "2":
-        				System.out.println("Que Actividad Desea Modificar?");
+        				String B = lector.nextLine(); //Guarda lo que queremos modificar de la actividad
+        				Boolean Match = false;
+        				for(int i=0; i<ContadorRegistros;i++) {
+        					
+        					if(ID[Integer.parseInt(A)].equals(usuario)) {//si el n de actividad esta registrada para el usuario !!!!OJO SE CAE EN ID[200]
+        					Match = true;
+        					if(Integer.parseInt(A)==i) { //si el n de actividad es igual a la posicion i de la actividad modificamos
+        					
+        						if(Integer.parseInt(B)==1) {//si apreto fecha
+        							System.out.println();
+        							System.out.println("Ingrese Nueva Fecha");
+        							System.out.println("Ingresar Formato DD/MM/AAAA");
+        							String NewF = lector.nextLine();
+        							Fechas[Integer.parseInt(A)] = NewF;
+        							System.out.println();
+        							System.out.println("Modificado Exitosamente");
+        							System.out.println();
+        						}
+        						if(Integer.parseInt(B)==2) {//si apreto duracion
+        							System.out.println();
+        							System.out.println("Ingrese Nueva Duracion");
+        							String NewD = lector.nextLine();
+        							Horas[Integer.parseInt(A)] = NewD;
+        							System.out.println();
+        							System.out.println("Modificado Exitosamente");
+        							System.out.println();
+        						}
+        						if(Integer.parseInt(B)==3) {//si apreto Tipo
+        							System.out.println();
+        							System.out.println("Ingrese Nuevo Tipo De Actividad");
+        							String NewA = lector.nextLine();
+        							Actividad[Integer.parseInt(A)] = NewA;
+        							System.out.println();
+        							System.out.println("Modificado Exitosamente");
+        							System.out.println();
+        						}
+        						if(Integer.parseInt(B)==0) {//si apreto Salir
+        						break;	
+        						}        					
+        					}
+        					}        					
+        				}        				
+        				if(!Match && Integer.parseInt(B)!=0){//si no hizo match con la actividad y no puso 0
+    						System.out.println();
+    						System.out.println("La Actividad No Coincide Con El Usuario, Intente Nuevamente");
+    						System.out.println();    					
+    					}        				        				       				
+        			break;	
         				
         			case "3":
         				System.out.println("Que Actividad Desea Eliminar?");
-        				
+        			break;	
         			case "4":
         				System.out.println("Seguro Que Quieres Cambiar La Contraseña?");
-        			
-        				
-
+        			break;        				
         			case "5":
-        				System.out.println("Seguro Que Deseas Salir?");
+        				Access=false;
+        				System.out.println("Has Salido");
+        				System.out.println();
+        			break;
         				
-        			}
-        		 
-        			
-        			
-        			
+        			} 
         			
         		}
-        	    
-        		//cuando el access sea negativo se printeara el siguiente mensaje
-        		if(!Access) {
-				System.out.println("Acceso Denegado");
-				Access=false;
-				
-				
+        		        		
+        		if(!login) { //cuando el login sea negativo se printeara el siguiente mensaje
+				System.out.println("Acceso Denegado, Intente Nuevamente");
+				System.out.println();
+				Access=false;								
         		}		
         		break;
-        		
-        		
-        	 
-        		
-        		
-        		
-        		
-        		
-        		
-        		
-        		
-        		
-        		
-        		
-        		
-        		
-        		
-        	//mientras tanto el resto del menu lo dejare sin tocar.	
-        	
+
         	case "2":
         		System.out.println("**Bienvenido Al Menu Analisis**");
         		  option = lector.nextLine();	
         	break;
         	case "3":
-        		System.out.println("**Salido Con Exito**");
-        		
+        		System.out.println("**Has Salido Con Exito**");        		
         		salir = true;	
         	break;
         	
@@ -252,12 +247,41 @@ public class Main {
                 option = lector.nextLine();	
             break;    
         	}
-        }
-        
-        
+        }       
         lector.close();
-        }
-}        	
+    }
+} 
+
+//Pauta de Evaluación
+//Puntaje Total Máximo: 120 puntos
+
+//1. Persistencia de Datos y Archivos (20 puntos)
+
+//[5 pts] Lectura de Usuarios: Lee correctamente el archivo Usuarios.txt, separando los datos por ; y almacenándolos en arreglos.
+//[5 pts] Lectura de Registros: Lee correctamente el archivo de registros, separando los datos por ;.
+//[5 pts] Escritura de Registros: Los cambios realizados (agregar, modificar, eliminar) se guardan correctamente en el archivo de texto, manteniendo el formato original.
+//[5 pts] Escritura de Usuarios: Al cambiar la contraseña, el archivo Usuarios.txt se actualiza correctamente de forma permanente.
+
+//2. Menú de Usuarios: Autenticación y CRUD (36 puntos)
+//[5 pts] Login / Autenticación: El sistema solicita credenciales, las valida y permite el acceso solo si son correctas.
+//[8 pts] Registrar actividad: Permite ingresar fecha, horas y actividad, añadiéndola al arreglo correspondiente (y posteriormente al archivo).
+//[10 pts] Modificar actividad: Muestra las actividades del usuario logueado. Permite seleccionar una por índice y modificar un campo específico (Fecha, Duración o Tipo) de manera exitosa.
+//[8 pts] Eliminar actividad: Permite al usuario seleccionar una de sus actividades y borrarla correctamente de los arreglos (reorganizando el arreglo o marcando el espacio como disponible).
+//[5 pts] Cambiar contraseña: Actualiza la credencial del usuario actual en el arreglo y refleja el cambio en el archivo.
+
+//3. Menú de Análisis y Lógica (26 puntos)
+//[8 pts] Actividad más realizada (Global): Algoritmo que cuenta correctamente las frecuencias de todas las actividades e imprime la que más se repite.
+//[8 pts] Actividad más realizada por usuario: Algoritmo que filtra por usuario, cuenta las frecuencias de sus actividades e imprime la mayor para cada uno.
+//[5 pts] Usuario con mayor procrastinación: Suma correctamente las horas totales invertidas por cada usuario e identifica al que tiene la mayor cantidad.
+//[5 pts] Ver todas las actividades: Imprime por consola el registro completo de forma ordenada y legible.
+
+//4. Control de Errores y Robustez (18 puntos)
+//[5 pts] Estructura de codigo: Mantiene un codigo limpio y ordenado con variables descriptivas y no genericas.
+//[8 pts] Validación de Índices y Rangos: Evita errores de IndexOutOfBounds (ej. si el usuario selecciona modificar la actividad "10" y solo tiene 3, o si se supera el límite de 300 registros).
+//[5 pts] Navegación de Menús: Las opciones de "Regresar" y "Salir" funcionan en todos los submenús sin atrapar al usuario en bucles infinitos.
+
+//5. Uso de GitHub (20 puntos)
+//[20 pts] Uso correcto: Estructura correcta del repositorio, commits frecuentes, buena documentacion.
         
         
-    
+//Fecha limite -> 03/04/2026    
