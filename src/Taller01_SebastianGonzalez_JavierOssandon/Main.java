@@ -15,6 +15,8 @@ public class Main {
         String Fechas[] = new String [300];
         String Horas[] = new String [300];
         String Actividad[] = new String [300];
+        
+        
 
         int ContadorUsuarios = 0;
         int ContadorRegistros = 0;
@@ -157,15 +159,29 @@ public class Main {
         				        	        				
         			case "2": //Modificar
         				
-        				System.out.println("Cual Actividad Desea Modificar?");
+        				System.out.println("¿Que Actividad Desea Modificar?");
         				System.out.println();
+        				int valor1 = 1;//esta variable sera para printear el numero en orden de las actividades
         				for(int i = 0; i < ContadorRegistros; i++) { //tenemos que printear las lineas que posean al usuario correspondiente.
         					if(ID[i].equals(usuario)) {
-        						System.out.println(i+") "+ID[i]+" "+Fechas[i]+" "+Horas[i]+" "+Actividad[i]);        						
+        						System.out.println(i+") "+ID[i]+" "+Fechas[i]+" "+Horas[i]+" "+Actividad[i]);   
+        						valor1++;
         					}
         				}
         				
         				String A = lector.nextLine(); //Guarda el n de la actividad que quiero modificar (i)
+        				Boolean Match = false;
+        				for(int i = 0; i<ContadorRegistros;i++) {
+        					if(ID[Integer.parseInt(A)].equals(usuario)) {
+        						Match = true;
+        						
+        					}
+        				}
+        				
+        				if(!Match) {
+        					System.out.println("La Actividad No Existe Para El Usuario");
+        					break;
+        				}
         				
         				System.out.println("Que Deseas Modificar?");
         				System.out.println("0) Regresar.");
@@ -174,7 +190,8 @@ public class Main {
         				System.out.println("3) Tipo de actividad");
         				
         				String B = lector.nextLine(); //Guarda lo que queremos modificar de la actividad
-        				Boolean Match = false;
+        				
+        				
         				for(int i=0; i<ContadorRegistros;i++) {
         					
         					if(ID[Integer.parseInt(A)].equals(usuario)) {//si el n de actividad esta registrada para el usuario !!!!OJO SE CAE EN ID[200]
@@ -223,10 +240,86 @@ public class Main {
         			break;	
         				
         			case "3":
+        				
+        				
+        				
+        				
+        				int valor2 = 1; //este numero ayuda a printear el numero en que sale cada actividad 1,2,3 y no 1,30,34 que es el correspondiente al documento
+        				
         				System.out.println("Que Actividad Desea Eliminar?");
+        				System.out.println();
+        				
+        				for(int i = 0; i < ContadorRegistros; i++) { //tenemos que printear las lineas que posean al usuario correspondiente.
+        					
+        					if(ID[i].equals(usuario)) {
+        						
+        						System.out.println(i+") "+ID[i]+" "+Fechas[i]+" "+Horas[i]+" "+Actividad[i]);
+        						valor2++;
+        						
+        						
+        					
+        					}
+        				}
+        				String C = lector.nextLine();  //va a ser el numero de actividad que quiero eliminar
+        				Boolean Match2 = false;
+        				
+        				
+        				for(int i = 0; i<ContadorRegistros;i++) {
+        					if(ID[Integer.parseInt(C)].equals(usuario)) {
+        						Match2 = true;
+        					}
+        				}
+        				if(!Match2) {//si no hace match hay que kickear
+        					
+        					System.out.println("La Actividad No Existe Para El Usuario");
+        					System.out.println();
+        					break;
+        					
+        				}
+        				
+        				if(Match2) {//si hace match hay que eliminar
+        					
+        				}
         			break;	
-        			case "4":
-        				System.out.println("Seguro Que Quieres Cambiar La Contraseña?");
+        			case "4"://Cambiar contraseña
+        				
+        				System.out.println("¿Estas Realmlente Seguro De Cambiar La Contraseña?(si/no)");
+        				String seguro = lector.nextLine();
+        				
+        				if(seguro.equalsIgnoreCase("no")) {
+        					break;
+        				}
+        				if(seguro.equalsIgnoreCase("si")) {
+        					
+        					for(int i = 0; i<ContadorUsuarios;i++) {
+        						
+        						if(Users[i].equals(usuario)){
+        							
+        							System.out.print("Ingrese Contraseña Actual: ");
+        							String contrasena = lector.nextLine();
+        							if(contrasena.equals(Passwords[i])) {
+        								System.out.print("Ingrese Nueva Contraseña: ");
+        								String nuevo = lector.nextLine();
+        								Passwords[i] = nuevo;
+        								System.out.println("Contraseña Cambiada Con Exito");
+        								System.out.println("Inicie Sesion Nuevamente");
+        								System.out.println();
+        								Access = false;
+        							
+        								
+        							}else {
+        								System.out.println("Contraseña Incorrecta");
+        								System.out.println();
+        							}
+        							
+        							
+        						}
+        						
+        					}
+        					
+        					
+        				}
+        				
         			break;        				
         			case "5":
         				Access=false;
@@ -247,8 +340,52 @@ public class Main {
 
         	case "2":
         		System.out.println("**Bienvenido Al Menu Analisis**");
+        		System.out.println();
+        		System.out.println("1) Actividad Más Realizada");
+        		System.out.println("2) Actividad Más Realizada Por Cada Usuario");
+        		System.out.println("3) Usuario Con Mayor Procrastinacion");
+        		System.out.println("4) Ver Todas Las Actividades ");
+        		System.out.println("5) Salir");
         		  option = lector.nextLine();	
+        		  
+        		  Boolean analisis = true;
+        		  String EleccionAnalisis = lector.nextLine();
+        		  
+        				 
+        		  while(analisis) {
+        			  
+        			  switch(option) {
+        			  
+        			  case "1": 
+        				  System.out.println("La Actividad Mas Realizada es: ");
+        				  break;
+        				  
+        				  
+        			  
+        			  }
+        				  
+        			  
+        		  }
+        		  
+        		  
+        		  
+        		  
         	break;
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
         	case "3":
         		System.out.println("**Has Salido Con Exito**");        		
         		salir = true;	
