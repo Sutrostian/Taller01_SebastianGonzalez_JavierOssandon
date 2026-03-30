@@ -1,6 +1,8 @@
 // Sebastian Andres Gonzalez Rossi - 21.186.016-2 - Ingenieria Civil Industrial - Sutrostian
 // Javier Ignacio Ossandon Calderon - 21.979.689-2 - Ingenieria Civil Industrial - javierossand
+
 package Taller01_SebastianGonzalez_JavierOssandon;
+import java.io.*;
 import java.util.Scanner;
 import java.io.File;
 public class Main {
@@ -8,13 +10,17 @@ public class Main {
     	
     	//Declaramos los arreglos a usar
     	
-
+        
+    	
+    	
         String Users[] = new String [300];
         String Passwords[] = new String [300];
         String ID[] = new String [300];
         String Fechas[] = new String [300];
         String Horas[] = new String [300];
         String Actividad[] = new String [300];
+        
+        
         
         
 
@@ -28,7 +34,11 @@ public class Main {
             File File2 = new File("Registros.txt");
             Scanner Usuarios = new Scanner(File1);
             Scanner Registros = new Scanner(File2);
-
+            
+        
+            
+            
+            
             //Guardaremos en el arreglo users y passwords lo que hay en Usuarios.txt
                         
             while(Usuarios.hasNextLine()) {    //Si hay registro en la siguiente linea                
@@ -57,6 +67,15 @@ public class Main {
             System.out.println("Error Al Intentar Leer El Archivo");
         }
        
+    
+   
+        
+        
+        
+        
+        
+        
+        
         //Menu Principal
         Scanner lector = new Scanner(System.in);
         boolean salir = false;
@@ -104,6 +123,8 @@ public class Main {
    
         		while(Access) {//Ahora generare un menu para cuando el acceso si sea correcto   
         		
+        			
+        			
         			System.out.println("Que Deseas Realizar?");
         			System.out.println("1) Registrar Actividad.");
         			System.out.println("2) Modificar Actividad.");
@@ -117,6 +138,8 @@ public class Main {
         			switch(MenuUsers) {
         			        			
         			case "1": //Agregar nueva
+        			   	
+        		     
         				System.out.println("Que Actividad Deseas Registrar?");
         				
         				String newA = lector.nextLine();
@@ -147,7 +170,15 @@ public class Main {
 							Horas[ContadorRegistros] = newD;
 							Actividad[ContadorRegistros] = newA;
 							ContadorRegistros++;
+							try(BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt",true))) {
+								  writer.newLine(); 
+	        		        	  writer.write(usuario+";"+newF+";"+newD+";"+newA);
+	        		        	  
+	        		        	} catch (IOException e) {
+	        		        	    e.printStackTrace();
+	        		        	}
 							System.out.println();
+						
 							System.out.println("Agregado Exitosamente");
 							System.out.println();
 						}else {
@@ -203,7 +234,19 @@ public class Main {
         							System.out.println("Ingrese Nueva Fecha");
         							System.out.println("Ingresar Formato DD/MM/AAAA");
         							String NewF = lector.nextLine();
+        							if(!NewF.matches("\\d{2}/\\d{2}/\\d{4}")) {//este if verifica que el formato DD/MM/AAAA se cumpla, en caso de no cumplirse devolvera al menu de usuario
+        								System.out.println("Formato de fecha invalido. Use DD/MM/AAAA");
+        							    break;
+        							}
         							Fechas[Integer.parseInt(A)] = NewF;
+        							try(BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt",false))) {
+      								  for(int j = 0;j<ContadorRegistros;j++) {
+      									  writer.write(ID[j]+";"+Fechas[j]+";"+Horas[j]+";"+Actividad[j]);
+      									  writer.newLine();
+      								  }
+      	        		        	} catch (IOException e) {
+      	        		        	    e.printStackTrace();
+      	        		        	}
         							System.out.println();
         							System.out.println("Modificado Exitosamente");
         							System.out.println();
@@ -213,6 +256,14 @@ public class Main {
         							System.out.println("Ingrese Nueva Duracion");
         							String NewD = lector.nextLine();
         							Horas[Integer.parseInt(A)] = NewD;
+        							try(BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt",false))) {
+        								  for(int j = 0;j<ContadorRegistros;j++) {
+        									  writer.write(ID[j]+";"+Fechas[j]+";"+Horas[j]+";"+Actividad[j]);
+        									  writer.newLine();
+        								  }  
+        	        		        	} catch (IOException e) {
+        	        		        	    e.printStackTrace();
+        	        		        	}
         							System.out.println();
         							System.out.println("Modificado Exitosamente");
         							System.out.println();
@@ -222,6 +273,14 @@ public class Main {
         							System.out.println("Ingrese Nuevo Tipo De Actividad");
         							String NewA = lector.nextLine();
         							Actividad[Integer.parseInt(A)] = NewA;
+        							try(BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt",false))) {
+        								  for(int j = 0;j<ContadorRegistros;j++) {
+        									  writer.write(ID[j]+";"+Fechas[j]+";"+Horas[j]+";"+Actividad[j]);
+        									  writer.newLine();
+        								  }		        	  
+        	        		        	} catch (IOException e) {
+        	        		        	    e.printStackTrace();
+        	        		        	}
         							System.out.println();
         							System.out.println("Modificado Exitosamente");
         							System.out.println();
@@ -240,12 +299,6 @@ public class Main {
         			break;	
         				
         			case "3":
-        				
-        				
-        				
-        				
-        				int valor2 = 1; //este numero ayuda a printear el numero en que sale cada actividad 1,2,3 y no 1,30,34 que es el correspondiente al documento
-        				
         				System.out.println("Que Actividad Desea Eliminar?");
         				System.out.println();
         				
@@ -254,7 +307,7 @@ public class Main {
         					if(ID[i].equals(usuario)) {
         						
         						System.out.println(i+") "+ID[i]+" "+Fechas[i]+" "+Horas[i]+" "+Actividad[i]);
-        						valor2++;
+        						
         						
         						
         					
@@ -278,6 +331,35 @@ public class Main {
         				}
         				
         				if(Match2) {//si hace match hay que eliminar
+        					for(int i = Integer.parseInt(C);i<ContadorRegistros;i++) {
+        						
+        						if(i == ContadorRegistros-1) {
+        							ID[i+1] = null;
+        							Fechas[i+1] = null;
+        							Horas[i+1]=null;
+        							Actividad[i+1]=null;
+        							ContadorRegistros = ContadorRegistros-1;
+        							
+        							break;
+        									
+        						}
+        						ID[i] = ID[i+1];
+        						Fechas[i]=Fechas[i+1];
+        						Horas[i] = Horas[i+1];
+        						Actividad[i]=Actividad[i+1];
+        						   					}
+        					
+        					//una vez elinada la actividad tenemos que sobreescribir el archivo
+        					try(BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt",false))) {
+								  for(int j = 0;j<ContadorRegistros;j++) {
+									  writer.write(ID[j]+";"+Fechas[j]+";"+Horas[j]+";"+Actividad[j]);
+									  writer.newLine();
+									 
+								  }  
+	        		        	} catch (IOException e) {
+	        		        	    e.printStackTrace();
+	        		        	}
+        					System.out.println("Eliminado exitosamente");
         					
         				}
         			break;	
@@ -301,6 +383,16 @@ public class Main {
         								System.out.print("Ingrese Nueva Contraseña: ");
         								String nuevo = lector.nextLine();
         								Passwords[i] = nuevo;
+        								try(BufferedWriter writer = new BufferedWriter(new FileWriter("Usuarios.txt",false))) {
+            								  for(int j = 0;j<ContadorUsuarios;j++) {
+            									  writer.write(Users[j]+";"+Passwords[j]);
+            									  writer.newLine();
+            								  }
+            	        		        	} catch (IOException e) {
+            	        		        	    e.printStackTrace();
+            	        		        	}
+        								
+        								
         								System.out.println("Contraseña Cambiada Con Exito");
         								System.out.println("Inicie Sesion Nuevamente");
         								System.out.println();
@@ -393,11 +485,14 @@ public class Main {
         	
         	default:
         		System.out.println("Ingrese La Opcion Nuevamente");
-                option = lector.nextLine();	
+                
             break;    
         	}
         }       
         lector.close();
+      
+        
+        
     }
 } 
 
