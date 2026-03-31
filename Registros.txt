@@ -187,12 +187,13 @@ Estefania;01/05/2026;2;Ver mlp
 Martin;02/05/2026;6;ser therian
 Catalina;02/05/2026;5;ser Batman por las noches
 Estefania;02/05/2026;4;investigar las cutiemarks
-Martin;03/05/2026;1;Ver reels
+Martin;03/05/2026;1;sercool
 Catalina;03/05/2026;2;Ver jujutsu
 Estefania;03/05/2026;3;estudiar
-Martin;04/05/2026;4;ser therian
 Catalina;04/05/2026;7;ser Batman por las noches
 Estefania;04/05/2026;3;investigar las cutiemarks
 Catalina;05/05/2026;1;programar
 Catalina;06/05/2026;6;ser Batman por las noches
 Catalina;25/03/2026;10;Programacion competitiva
+Martin;03/12/2002;4;777
+Martin;03/12/2002;5;HOLASEBAS

@@ -1,6 +1,5 @@
 // Sebastian Andres Gonzalez Rossi - 21.186.016-2 - Ingenieria Civil Industrial - Sutrostian
 // Javier Ignacio Ossandon Calderon - 21.979.689-2 - Ingenieria Civil Industrial - javierossand
-
 package Taller01_SebastianGonzalez_JavierOssandon;
 import java.io.*;
 import java.util.Scanner;
@@ -8,37 +7,24 @@ import java.io.File;
 public class Main {
     public static void main(String[] args) {
     	
-    	//Declaramos los arreglos a usar
-    	
-        
-    	
-    	
+    	//Declaramos los arreglos a usar    	
         String Users[] = new String [300];
         String Passwords[] = new String [300];
         String ID[] = new String [300];
         String Fechas[] = new String [300];
         String Horas[] = new String [300];
         String Actividad[] = new String [300];
-        
-        
-        
-        
-
+          
         int ContadorUsuarios = 0;
         int ContadorRegistros = 0;
               
         //Primero Leeremos los archivos                       
         try {
-
             File File1 = new File ("Usuarios.txt");
             File File2 = new File("Registros.txt");
             Scanner Usuarios = new Scanner(File1);
             Scanner Registros = new Scanner(File2);
-            
-        
-            
-            
-            
+    
             //Guardaremos en el arreglo users y passwords lo que hay en Usuarios.txt
                         
             while(Usuarios.hasNextLine()) {    //Si hay registro en la siguiente linea                
@@ -66,21 +52,12 @@ public class Main {
         }catch (Exception e) {
             System.out.println("Error Al Intentar Leer El Archivo");
         }
-       
-    
-   
-        
-        
-        
-        
-        
-        
         
         //Menu Principal
         Scanner lector = new Scanner(System.in);
         boolean salir = false;
 
-        while(!salir) {
+        while(!salir) {//MENU GENERAL
 
             System.out.println("**Bienvenido**");
             System.out.println("**Seleccione Una Opcion**");
@@ -91,7 +68,7 @@ public class Main {
             String option = lector.nextLine();
 
             switch(option) {
-        	case "1":
+        	case "1": //MENU USUARIOS
                	//definiremos 2 variables a comparar siendo el usuario y la contrasena
         		String usuario;
         		String password;
@@ -122,9 +99,7 @@ public class Main {
         		}
    
         		while(Access) {//Ahora generare un menu para cuando el acceso si sea correcto   
-        		
-        			
-        			
+     			
         			System.out.println("Que Deseas Realizar?");
         			System.out.println("1) Registrar Actividad.");
         			System.out.println("2) Modificar Actividad.");
@@ -137,13 +112,10 @@ public class Main {
         			       			
         			switch(MenuUsers) {
         			        			
-        			case "1": //Agregar nueva
-        			   	
-        		     
+        			case "1"://REGISTRAR ACTIVIDAD
+        			   	     		     
         				System.out.println("Que Actividad Deseas Registrar?");
-        				
         				String newA = lector.nextLine();
-        				
         				System.out.println("Ingrese Fecha De La Actividad");
 						System.out.println("Ingresar Formato DD/MM/AAAA");
 						String newF = lector.nextLine();
@@ -151,8 +123,7 @@ public class Main {
 							System.out.println("Formato de fecha invalido. Use DD/MM/AAAA");
 						    break;
 						}
-						
-						
+										
 						System.out.println("Ingrese La Duracion De La Actividad");
 						String newD = lector.nextLine();
 										
@@ -162,8 +133,7 @@ public class Main {
 							System.out.println("La Duracion Debe Ser Un Numero Entero (Horas)");
 							break;
 						}
-						
-						
+					
 						if(ContadorRegistros<300) {
 							ID[ContadorRegistros] = usuario;
 							Fechas[ContadorRegistros] = newF;
@@ -177,18 +147,15 @@ public class Main {
 	        		        	} catch (IOException e) {
 	        		        	    e.printStackTrace();
 	        		        	}
-							System.out.println();
-						
+							System.out.println();					
 							System.out.println("Agregado Exitosamente");
 							System.out.println();
 						}else {
 							System.out.println("No Se Pueden Agregar Mas Actividades");
-						}
-        				       				
-       				        				
+						}	
         			break;
         				        	        				
-        			case "2": //Modificar
+        			case "2"://MODIFICAR ACTIVIDAD
         				
         				System.out.println("¿Que Actividad Desea Modificar?");
         				System.out.println();
@@ -203,17 +170,20 @@ public class Main {
         				String A = lector.nextLine(); //Guarda el n de la actividad que quiero modificar (i)
         				Boolean Match = false;
         				for(int i = 0; i<ContadorRegistros;i++) {
-        					if(ID[Integer.parseInt(A)].equals(usuario)) {
+        					try{
+        						if(ID[Integer.parseInt(A)].equals(usuario)) {
+        						}
         						Match = true;
-        						
+        					}catch(Exception e) {
+        						System.out.println();
+        						break;
         					}
         				}
-        				
         				if(!Match) {
         					System.out.println("La Actividad No Existe Para El Usuario");
+        					System.out.println();
         					break;
         				}
-        				
         				System.out.println("Que Deseas Modificar?");
         				System.out.println("0) Regresar.");
         				System.out.println("1) Fecha");
@@ -221,7 +191,6 @@ public class Main {
         				System.out.println("3) Tipo de actividad");
         				
         				String B = lector.nextLine(); //Guarda lo que queremos modificar de la actividad
-        				
         				
         				for(int i=0; i<ContadorRegistros;i++) {
         					
@@ -240,11 +209,11 @@ public class Main {
         							}
         							Fechas[Integer.parseInt(A)] = NewF;
         							try(BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt",false))) {
-      								  for(int j = 0;j<ContadorRegistros;j++) {
+      								  	for(int j = 0;j<ContadorRegistros;j++) {
       									  writer.write(ID[j]+";"+Fechas[j]+";"+Horas[j]+";"+Actividad[j]);
       									  writer.newLine();
-      								  }
-      	        		        	} catch (IOException e) {
+      								  	}
+      	        		        	}catch (IOException e){
       	        		        	    e.printStackTrace();
       	        		        	}
         							System.out.println();
@@ -261,9 +230,9 @@ public class Main {
         									  writer.write(ID[j]+";"+Fechas[j]+";"+Horas[j]+";"+Actividad[j]);
         									  writer.newLine();
         								  }  
-        	        		        	} catch (IOException e) {
-        	        		        	    e.printStackTrace();
-        	        		        	}
+        	        		        }catch (IOException e){
+        	        		        	e.printStackTrace();
+        	        		        }
         							System.out.println();
         							System.out.println("Modificado Exitosamente");
         							System.out.println();
@@ -278,9 +247,9 @@ public class Main {
         									  writer.write(ID[j]+";"+Fechas[j]+";"+Horas[j]+";"+Actividad[j]);
         									  writer.newLine();
         								  }		        	  
-        	        		        	} catch (IOException e) {
-        	        		        	    e.printStackTrace();
-        	        		        	}
+        	        		        }catch (IOException e){
+        	        		        	e.printStackTrace();
+        	        		        }
         							System.out.println();
         							System.out.println("Modificado Exitosamente");
         							System.out.println();
@@ -298,7 +267,7 @@ public class Main {
     					}        				        				       				
         			break;	
         				
-        			case "3":
+        			case "3"://ELIMINAR ACTIVIDAD
         				System.out.println("Que Actividad Desea Eliminar?");
         				System.out.println();
         				
@@ -306,17 +275,12 @@ public class Main {
         					
         					if(ID[i].equals(usuario)) {
         						
-        						System.out.println(i+") "+ID[i]+" "+Fechas[i]+" "+Horas[i]+" "+Actividad[i]);
-        						
-        						
-        						
-        					
+        						System.out.println(i+") "+ID[i]+" "+Fechas[i]+" "+Horas[i]+" "+Actividad[i]);	
         					}
         				}
         				String C = lector.nextLine();  //va a ser el numero de actividad que quiero eliminar
         				Boolean Match2 = false;
-        				
-        				
+        			
         				for(int i = 0; i<ContadorRegistros;i++) {
         					if(ID[Integer.parseInt(C)].equals(usuario)) {
         						Match2 = true;
@@ -326,8 +290,7 @@ public class Main {
         					
         					System.out.println("La Actividad No Existe Para El Usuario");
         					System.out.println();
-        					break;
-        					
+        					break;	
         				}
         				
         				if(Match2) {//si hace match hay que eliminar
@@ -339,31 +302,26 @@ public class Main {
         							Horas[i+1]=null;
         							Actividad[i+1]=null;
         							ContadorRegistros = ContadorRegistros-1;
-        							
         							break;
-        									
         						}
         						ID[i] = ID[i+1];
         						Fechas[i]=Fechas[i+1];
         						Horas[i] = Horas[i+1];
         						Actividad[i]=Actividad[i+1];
-        						   					}
-        					
+        					}
         					//una vez elinada la actividad tenemos que sobreescribir el archivo
         					try(BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt",false))) {
 								  for(int j = 0;j<ContadorRegistros;j++) {
 									  writer.write(ID[j]+";"+Fechas[j]+";"+Horas[j]+";"+Actividad[j]);
-									  writer.newLine();
-									 
+									  writer.newLine();	 
 								  }  
-	        		        	} catch (IOException e) {
-	        		        	    e.printStackTrace();
-	        		        	}
+	        		        } catch (IOException e) {
+	        		        	e.printStackTrace();
+	        		        }
         					System.out.println("Eliminado exitosamente");
-        					
         				}
         			break;	
-        			case "4"://Cambiar contraseña
+        			case "4"://CAMBIAR CONTRASENA
         				
         				System.out.println("¿Estas Realmlente Seguro De Cambiar La Contraseña?(si/no)");
         				String seguro = lector.nextLine();
@@ -388,41 +346,32 @@ public class Main {
             									  writer.write(Users[j]+";"+Passwords[j]);
             									  writer.newLine();
             								  }
-            	        		        	} catch (IOException e) {
-            	        		        	    e.printStackTrace();
-            	        		        	}
-        								
-        								
+            	        		        }catch (IOException e){
+            	        		        	e.printStackTrace();
+            	        		        }
         								System.out.println("Contraseña Cambiada Con Exito");
         								System.out.println("Inicie Sesion Nuevamente");
         								System.out.println();
         								Access = false;
-        							
-        								
         							}else {
         								System.out.println("Contraseña Incorrecta");
         								System.out.println();
         							}
-        							
-        							
         						}
-        						
         					}
-        					
-        					
-        				}
-        				
+        				}      				
         			break;        				
-        			case "5":
+        			case "5"://SALIR
         				Access=false;
         				System.out.println("Has Salido");
         				System.out.println();
         			break;
-        				
+        			default:
+                		System.out.println("Ingrese La Opcion Nuevamente");   
+                		System.out.println();
+                    break;
         			} 
-        			
-        		}
-        		        		
+        		}  		
         		if(!login) { //cuando el login sea negativo se printeara el siguiente mensaje
 				System.out.println("Acceso Denegado, Intente Nuevamente");
 				System.out.println();
@@ -430,55 +379,71 @@ public class Main {
         		}		
         		break;
 
-        	case "2":
-        		System.out.println("**Bienvenido Al Menu Analisis**");
-        		System.out.println();
-        		System.out.println("1) Actividad Más Realizada");
-        		System.out.println("2) Actividad Más Realizada Por Cada Usuario");
-        		System.out.println("3) Usuario Con Mayor Procrastinacion");
-        		System.out.println("4) Ver Todas Las Actividades ");
-        		System.out.println("5) Salir");
-        		  option = lector.nextLine();	
-        		  
-        		  Boolean analisis = true;
-        		  String EleccionAnalisis = lector.nextLine();
-        		  
-        				 
-        		  while(analisis) {
-        			  
-        			  switch(option) {
-        			  
-        			  case "1": 
-        				  System.out.println("La Actividad Mas Realizada es: ");
+        	case "2"://MENU ANALISIS
+        		       		       		  
+        		Boolean analisis = true;      		         				 
+        		while(analisis) {
+        			
+        			System.out.println("**Bienvenido Al Menu Analisis**");
+            		System.out.println();
+            		System.out.println("1) Actividad Más Realizada");
+            		System.out.println("2) Actividad Más Realizada Por Cada Usuario");
+            		System.out.println("3) Usuario Con Mayor Procrastinacion");
+            		System.out.println("4) Ver Todas Las Actividades ");
+            		System.out.println("5) Salir"); 
+            		option = lector.nextLine();	
+            		String Unicos [] = new String [300]; 
+            		int anadidos = 0;
+           		
+            		for(int i=0; i<ContadorRegistros; i++) { //Recorre Filas
+            			boolean existe = false;           			
+            			for(int j=0; j<ContadorRegistros; j++) { //Recorre Columnas
+            			if(Actividad[i].equals(Unicos[j])) {
+            				existe=true;
+                			break;	
+            			}          			
+                   		}
+            			
+            			if(!existe) { //Si no existe agregar en unicos
+            				Unicos[anadidos]=Actividad[i];
+            				anadidos++;           				
+            			}
+            		}
+            		switch(option) {
+            		         			  
+        			  case "1"://ACTIVIDAD MAS REALIZADA
+        				  System.out.println("La Actividad Mas Realizada Es: ");
+        				  break; 
+        				  
+        			  case "2"://ACTIVIDAD MAS REALIZADA POR USUARIO
+        				  System.out.println("La Actividad Mas Realizada Para El Usuario: ");
         				  break;
         				  
+        			  case "3"://USUARIO CON MAYOR PROCRASTINACION
+        				  System.out.println("El Usuario Con Mayor Procrastinacion Es: ");
+        				  break;
         				  
+        			  case "4"://VER TODAS LAS ACTIVIDADES
+          					for(int i=0; i<ContadorRegistros;i++) {
+          						if(Unicos[i]!=null) {
+          							System.out.println("Actividad N :"+" "+i+ " - " + Unicos[i]);	
+          						}       						
+          					}
+          					System.out.println();
+        			  break;
         			  
+        			  case "5"://SALIR
+        				  analisis=false;
+        				  break;
+        			  default:
+        	        		System.out.println("Ingrese La Opcion Nuevamente"); 
+        	        		System.out.println();
+        	          break;
         			  }
-        				  
-        			  
-        		  }
-        		  
-        		  
-        		  
-        		  
+        		}
         	break;
-        	
-        	
-        	
-        	
-        	
-        	
-        	
-        	
-        	
-        	
-        	
-        	
-        	
-        	
-        	
-        	case "3":
+        	      	
+        	case "3"://SALIR DE LA APLICACION(MENU GENERAL)
         		System.out.println("**Has Salido Con Exito**");        		
         		salir = true;	
         	break;
@@ -489,10 +454,7 @@ public class Main {
             break;    
         	}
         }       
-        lector.close();
-      
-        
-        
+        lector.close();       
     }
 } 
 
