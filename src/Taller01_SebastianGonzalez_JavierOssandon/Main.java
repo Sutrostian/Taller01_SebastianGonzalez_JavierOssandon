@@ -128,7 +128,9 @@ public class Main {
 						String newD = lector.nextLine();
 										
 						try{ //Este try tiene por proposito verificar que la duracion colocada en el scanner es un numero valido
-							int Comprobante = Integer.parseInt(newD);
+							Integer.parseInt(newD);
+							
+						    
 						}catch(Exception e) {
 							System.out.println("La Duracion Debe Ser Un Numero Entero (Horas)");
 							break;
@@ -159,11 +161,9 @@ public class Main {
         				
         				System.out.println("¿Que Actividad Desea Modificar?");
         				System.out.println();
-        				int valor1 = 1;//esta variable sera para printear el numero en orden de las actividades
         				for(int i = 0; i < ContadorRegistros; i++) { //tenemos que printear las lineas que posean al usuario correspondiente.
         					if(ID[i].equals(usuario)) {
         						System.out.println(i+") "+ID[i]+" "+Fechas[i]+" "+Horas[i]+" "+Actividad[i]);   
-        						valor1++;
         					}
         				}
         				
@@ -380,10 +380,9 @@ public class Main {
         		break;
 
         	case "2"://MENU ANALISIS
-        		       		       		  
-        		Boolean analisis = true;      		         				 
-        		while(analisis) {
-        			
+        		Boolean analisis = true;   //inicializa el menu de analisis   		         				 
+        		while(analisis) {//mientras se mantenga verdadero se mostrara el submenu
+        			//el siguiente bloque es simplemente las opciones esperando a la eleccion
         			System.out.println("**Bienvenido Al Menu Analisis**");
             		System.out.println();
             		System.out.println("1) Actividad Más Realizada");
@@ -392,9 +391,11 @@ public class Main {
             		System.out.println("4) Ver Todas Las Actividades ");
             		System.out.println("5) Salir"); 
             		option = lector.nextLine();	
-            		String Unicos [] = new String [300]; 
-            		int anadidos = 0;
-           		
+            		//////////////////////////////////////////////////////////////////////////
+            		String Unicos [] = new String [300]; //este arreglo "unicos" sera para obtener cada induvidual de las actividades y luego printear su relacionado
+            		int anadidos = 0; //esta variable nos servira para los algoritmos de ordenamiento para no ocupar un null por accidente
+            		////////////////////////////////////////////////
+            		// el siguiente algoritmo es para añadir a la matriz los unicos existentes
             		for(int i=0; i<ContadorRegistros; i++) { //Recorre Filas
             			boolean existe = false;           			
             			for(int j=0; j<ContadorRegistros; j++) { //Recorre Columnas
@@ -403,30 +404,53 @@ public class Main {
                 			break;	
             			}          			
                    		}
-            			
             			if(!existe) { //Si no existe agregar en unicos
             				Unicos[anadidos]=Actividad[i];
             				anadidos++;           				
             			}
             		}
-            		switch(option) {
-            		         			  
+            		/////////////////////////////////////////////
+            		switch(option) { //CASOS POSIBLES DEL MENU DE ANALISIS   
+            		//------------------------------------------------------------------------------------------------------
         			  case "1"://ACTIVIDAD MAS REALIZADA
         				  System.out.println("La Actividad Mas Realizada Es: ");
+        				  //a continuacion se generara el algoritmo para determinar la actividad con mas horas, invlolucra determinar las horas correspondientes de cada actividad y la comparacion para ver cual es la mayor
+        				  int CantidadHoras[] = new int[anadidos];
+        				  String MasHoras = Unicos[0];//inicializamos 2 variables, una del valor con  mas horas
+        				  int Max = CantidadHoras[0];//y el Max tiene por proposito hacer memoria en la iteracion y no olvidar que posicion es la mayor
+        				  
+        				  for(int i = 0; i<ContadorRegistros;i++) {
+        					  for(int j = 0;j <anadidos;j++) {
+        						  if(Unicos[j].equals(Actividad[i])) {
+        							  CantidadHoras[j] = CantidadHoras[j] + Integer.parseInt(Horas[i]);
+        						  }
+        					  }
+        				  }
+                          for(int i = 0; i<anadidos; i++) {
+                        	 if(CantidadHoras[i]>Max) {//si la cantidad de horas que tenemos es mayor a la cantidad de horas maxima guardadas en la memoria actualizamos la memoria
+                        		 Max=CantidadHoras[i];
+                        		 MasHoras=Unicos[i];
+                        	 }
+        				  }
+        				  System.out.println("La Actividad Con Mas Horas Es "+ MasHoras+" Con "+ Max +" Horas");  
         				  break; 
         				  
+        				  
+                      //------------------------------------------------------------------------------------------------------------------
         			  case "2"://ACTIVIDAD MAS REALIZADA POR USUARIO
         				  System.out.println("La Actividad Mas Realizada Para El Usuario: ");
+        				  System.out.println("");
         				  break;
-        				  
+                      //------------------------------------------------------------------------------------------------------------------
         			  case "3"://USUARIO CON MAYOR PROCRASTINACION
         				  System.out.println("El Usuario Con Mayor Procrastinacion Es: ");
-        				  break;
         				  
+        				  break;
+                      //------------------------------------------------------------------------------------------------------------------
         			  case "4"://VER TODAS LAS ACTIVIDADES
           					for(int i=0; i<ContadorRegistros;i++) {
           						if(Unicos[i]!=null) {
-          							System.out.println("Actividad N :"+" "+i+ " - " + Unicos[i]);	
+          							System.out.println((i+1)+").-"+" " + Unicos[i]);	
           						}       						
           					}
           					System.out.println();
