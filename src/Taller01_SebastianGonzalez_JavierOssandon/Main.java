@@ -4,6 +4,7 @@ package Taller01_SebastianGonzalez_JavierOssandon;
 import java.io.*;
 import java.util.Scanner;
 import java.io.File;
+import java.text.ParseException;
 public class Main {
     public static void main(String[] args) {
     	
@@ -438,9 +439,56 @@ public class Main {
         				  
                       //------------------------------------------------------------------------------------------------------------------
         			  case "2"://ACTIVIDAD MAS REALIZADA POR USUARIO
+        				  
+//NOTA PARA SEBASTIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//ESTO ES LO QUE ESTABA TRABAJANDO TE INTENTARE DEJAR LA EXPLICACION MAS CLARA POSIBLE
         				  System.out.println("La Actividad Mas Realizada Para El Usuario: ");
         				  System.out.println("");
-        				  break;
+        				  
+        				  //LA IDEA ES REALIZAR MATRICES
+        	              //PARA HACER UN RECORRIDO POR CADA USUARIO AÑADIENDO LAS HORAS CORRESPONDIENTES A LA MATRIZ DE HORAS CORRESPONDIENTE
+        				  //CON CADA POSICION DE HORAS[X] EQUIVALENTE A LA POSICION DE LA ACTIVIDAD UNICOS[X]
+        				  //POR EJEMPLOS SI TENEMOS UNICOS[ESTUDIAR;SER THERIAN;SER BATMAN] Y TENEMOS HORASUNICAS[10;15;9] CON USUARIO[I] = MARTIN
+        				  //SIGNIFICA QUE ESAS SON LAS HORAS DE CADA ACTIVIDAD DEL MARTIN CORRESPONDIENTES LUEGO DEBERIAMOS METER LA MATRIZ A UN ALGORITMO DE BUSQUEDA
+        				  //EL ALGORITMO DEBERIA SER CAPAZ DE ENCONTRAR EL MAYOR POR EJEMPLO DETERMINA HORASUNICAS[1] ES EL MAYOR ENTONCES UNICOS[1] ES LA ACTIVIDAD CON +HORAS
+        				  
+        				  //Users[i] contiene a los usuarios existentes
+        				  //
+        				  int HORASMASREALIZADA[] = new int[ContadorUsuarios]; //Esta matriz sera para guardar las horas de la actividad mas realizada por cada usuario
+        				  String ACTIVIDADMASREALIZADA[] = new String[ContadorUsuarios];
+        				  int HORASUNICAS[] = new int[anadidos];
+        				
+        				  for(int i = 0; i<ContadorUsuarios;i++){//este for sera para recorrer a los usuarios
+        				    for(int j = 0;j<ContadorRegistros;j++) {//recorrera las actividades y vera a cual posicion sumar
+        				    	if(Users[i].equals(ID[j])) {
+        				    	
+        				    		for(int k = 0;k<anadidos;k++) {//recorrera la lista de unicos comparando y viendo a cual sumar
+        				    			if(Actividad[j].equals(Unicos[k])) {
+        				    				HORASUNICAS[k] = (HORASUNICAS[k]+Integer.parseInt(Horas[j]));
+        				    				System.out.println(HORASUNICAS[k] +Users[i] + Actividad[j]);
+        				    			}
+        				    		
+        				    		}
+        				    		
+        				    	}
+        				  
+        				  
+        				    
+        				    	
+        				    	
+        				    }
+        				  for(int j = 0;j<anadidos;j++) {
+        				  HORASUNICAS[j] = 0;
+        				  }
+        				  }
+        				  
+        				  
+        				  
+        				  
+        				  
+        				  
+        				  break;  
+
                       //------------------------------------------------------------------------------------------------------------------
         			  case "3"://USUARIO CON MAYOR PROCRASTINACION
         				  System.out.println("El Usuario Con Mayor Procrastinacion Es: ");
