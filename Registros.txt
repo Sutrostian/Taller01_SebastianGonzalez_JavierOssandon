@@ -198,3 +198,7 @@ Catalina;05/05/2026;1;programar
 Estefania;05/05/2026;2;Ver mlp
 Martin;06/05/2026;5;ser therian
 Catalina;06/05/2026;6;ser Batman por las noches
+
+Martin;03/12/2002;201;Estudiar Estadistica
+Catalina;03/12/2002;201;Estudiar po
+Estefania;03/12/2002;201;OyeSebas

@@ -414,7 +414,6 @@ public class Main {
             		switch(option) { //CASOS POSIBLES DEL MENU DE ANALISIS   
             		//------------------------------------------------------------------------------------------------------
         			  case "1"://ACTIVIDAD MAS REALIZADA
-        				  System.out.println("La Actividad Mas Realizada Es: ");
         				  //a continuacion se generara el algoritmo para determinar la actividad con mas horas, invlolucra determinar las horas correspondientes de cada actividad y la comparacion para ver cual es la mayor
         				  int CantidadHoras[] = new int[anadidos];
         				  String MasHoras = Unicos[0];//inicializamos 2 variables, una del valor con  mas horas
@@ -427,6 +426,7 @@ public class Main {
         						  }
         					  }
         				  }
+        				  
                           for(int i = 0; i<anadidos; i++) {
                         	 if(CantidadHoras[i]>Max) {//si la cantidad de horas que tenemos es mayor a la cantidad de horas maxima guardadas en la memoria actualizamos la memoria
                         		 Max=CantidadHoras[i];
@@ -439,23 +439,7 @@ public class Main {
         				  
                       //------------------------------------------------------------------------------------------------------------------
         			  case "2"://ACTIVIDAD MAS REALIZADA POR USUARIO
-        				  
-//NOTA PARA SEBASTIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//ESTO ES LO QUE ESTABA TRABAJANDO TE INTENTARE DEJAR LA EXPLICACION MAS CLARA POSIBLE
-        				  System.out.println("La Actividad Mas Realizada Para El Usuario: ");
-        				  System.out.println("");
-        				  
-        				  //LA IDEA ES REALIZAR MATRICES
-        	              //PARA HACER UN RECORRIDO POR CADA USUARIO AÑADIENDO LAS HORAS CORRESPONDIENTES A LA MATRIZ DE HORAS CORRESPONDIENTE
-        				  //CON CADA POSICION DE HORAS[X] EQUIVALENTE A LA POSICION DE LA ACTIVIDAD UNICOS[X]
-        				  //POR EJEMPLOS SI TENEMOS UNICOS[ESTUDIAR;SER THERIAN;SER BATMAN] Y TENEMOS HORASUNICAS[10;15;9] CON USUARIO[I] = MARTIN
-        				  //SIGNIFICA QUE ESAS SON LAS HORAS DE CADA ACTIVIDAD DEL MARTIN CORRESPONDIENTES LUEGO DEBERIAMOS METER LA MATRIZ A UN ALGORITMO DE BUSQUEDA
-        				  //EL ALGORITMO DEBERIA SER CAPAZ DE ENCONTRAR EL MAYOR POR EJEMPLO DETERMINA HORASUNICAS[1] ES EL MAYOR ENTONCES UNICOS[1] ES LA ACTIVIDAD CON +HORAS
-        				  
-        				  //Users[i] contiene a los usuarios existentes
-        				  //
-        				  int HORASMASREALIZADA[] = new int[ContadorUsuarios]; //Esta matriz sera para guardar las horas de la actividad mas realizada por cada usuario
-        				  String ACTIVIDADMASREALIZADA[] = new String[ContadorUsuarios];
+
         				  int HORASUNICAS[] = new int[anadidos];
         				
         				  for(int i = 0; i<ContadorUsuarios;i++){//este for sera para recorrer a los usuarios
@@ -465,34 +449,66 @@ public class Main {
         				    		for(int k = 0;k<anadidos;k++) {//recorrera la lista de unicos comparando y viendo a cual sumar
         				    			if(Actividad[j].equals(Unicos[k])) {
         				    				HORASUNICAS[k] = (HORASUNICAS[k]+Integer.parseInt(Horas[j]));
-        				    				System.out.println(HORASUNICAS[k] +Users[i] + Actividad[j]);
+        				    			
         				    			}
         				    		
         				    		}
         				    		
         				    	}
-        				  
-        				  
-        				    
-        				    	
-        				    	
+		    	
         				    }
-        				  for(int j = 0;j<anadidos;j++) {
-        				  HORASUNICAS[j] = 0;
+        				    
+        				    //Inicializamos las variables de memoria para la comparacion
+        				    int MaximoProcrastinador = 0;
+        				    String NombreDelProcrastinador = "ninguno";
+        				    //
+        				    for(int k = 0;k<anadidos;k++) {
+        				    	if(HORASUNICAS[k]!=0) {
+        			
+        				    		//buscar el maximo
+        				    		if(HORASUNICAS[k] > MaximoProcrastinador) {//determinamos si las horas actuales son mayores que las horas en memoria si lo son remplazamos
+        				    			NombreDelProcrastinador = Unicos[k];
+        				    			MaximoProcrastinador = HORASUNICAS[k];
+    				    			
+        				    		}
+				    		}
+  				 
         				  }
-        				  }
-        				  
-        				  
-        				  
-        				  
-        				  
-        				  
+        				  System.out.println("La Actividad Con Mas Horas De Procrastinacion de "+Users[i]+" Es "+NombreDelProcrastinador);
+          				  System.out.println("Con "+MaximoProcrastinador+" Horas");
+          				  System.out.println();
+          				 
+        				  //reiniciamos las horas para no afectar al siguiente usuario
+        				    for(int j = 0;j<anadidos;j++) {
+              				  HORASUNICAS[j] = 0;
+              				  }
+        				  }				  
         				  break;  
 
                       //------------------------------------------------------------------------------------------------------------------
         			  case "3"://USUARIO CON MAYOR PROCRASTINACION
-        				  System.out.println("El Usuario Con Mayor Procrastinacion Es: ");
+    					  int Temp1 = 0;
+    					  String Temp2 = "Ninguno";
+        				  int HorasTotalesUsuario [] = new int [ContadorUsuarios]; 
         				  
+        				  for(int i = 0; i<ContadorUsuarios ; i++ ) {
+        					  for(int j = 0; j<ContadorRegistros ; j++) {
+        						  if(Users[i].equals(ID[j])) {
+        							  HorasTotalesUsuario[i]=HorasTotalesUsuario[i]+Integer.parseInt(Horas[j]);
+        						  }//IF USERS
+        						  
+        					  }//FOR j
+        					  System.out.println("User : " + Users[i] + " - Horas Totales : " + HorasTotalesUsuario[i]);
+        					        					  
+        					  for(int Mateo = 0; Mateo<ContadorUsuarios; Mateo++) {//Mateo es una variable para recorrer arreglos.
+        						if(HorasTotalesUsuario[i]>Temp1) {
+        							Temp1 = HorasTotalesUsuario[i];
+        							Temp2 = Users[i];      							
+        						}
+        					  }//FOR Mateo           				
+        				  }//FOR I
+        				  System.out.println("El Usuario Con Mayor Procrastinacion Es: " + Temp2 + " CON UN TOTAL DE: " + Temp1 + " HORAS");
+        				  System.out.println("");
         				  break;
                       //------------------------------------------------------------------------------------------------------------------
         			  case "4"://VER TODAS LAS ACTIVIDADES
@@ -562,4 +578,4 @@ public class Main {
 //[20 pts] Uso correcto: Estructura correcta del repositorio, commits frecuentes, buena documentacion.
         
         
-//Fecha limite -> 03/04/2026    
+//Fecha limite -> 03/04/2026
