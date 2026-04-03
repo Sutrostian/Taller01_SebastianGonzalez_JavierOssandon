@@ -4,7 +4,6 @@ package Taller01_SebastianGonzalez_JavierOssandon;
 import java.io.*;
 import java.util.Scanner;
 import java.io.File;
-import java.text.ParseException;
 public class Main {
     public static void main(String[] args) {
     	
